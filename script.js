@@ -21,10 +21,13 @@ function startStop() {
         timerInterval = setInterval(updateTime, 10);
         startStopBtn.textContent = 'Pause';
         startStopBtn.style.backgroundColor = '#ffc107';
+        tickSound.loop = true;
+        tickSound.play();
     } else {
         clearInterval(timerInterval);
         startStopBtn.textContent = 'Start';
         startStopBtn.style.backgroundColor = '#28a745';
+        tickSound.pause();
     }
     isRunning = !isRunning;
 }
@@ -37,6 +40,8 @@ function reset() {
     startStopBtn.style.backgroundColor = '#28a745';
     isRunning = false;
     laps.innerHTML = '';
+    tickSound.pause();
+    tickSound.currentTime = 0;
 }
 
 function lap() {
@@ -55,5 +60,4 @@ function updateTime() {
     const seconds = time.getUTCSeconds().toString().padStart(2, '0');
     const milliseconds = Math.floor(time.getUTCMilliseconds() / 10).toString().padStart(2, '0');
     display.textContent = `${minutes}:${seconds}:${milliseconds}`;
-    tickSound.play();
 }
